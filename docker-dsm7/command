@@ -1,0 +1,3 @@
+ssh -p 2222 sr@localhost <br>
+sudo -i <br>
+sudo synouser --setpw sr 비번 <br>
