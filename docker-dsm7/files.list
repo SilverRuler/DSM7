@@ -1,0 +1,10 @@
+root@gemini:~/DSM7# ls
+data  docker-compose.yml  docker-compose.yml.ori  rr-26.4.0.img.zip  rr.img  sha256sum  summary.txt
+root@gemini:~/DSM7#
+
+
+
+``` RR loader project
+https://github.com/RROrg/rr
+```
+wget https://github.com/RROrg/rr/releases/download/26.4.0/rr-26.4.0.img.zip
