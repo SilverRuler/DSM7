@@ -1,0 +1,30 @@
+services:
+  rr:
+    image: qemux/qemu:latest
+    container_name: rr_xpenology_1
+    environment:
+      RAM_SIZE: "4G"
+      CPU_CORES: "2"
+      DISK_FMT: "qcow2"
+      DISK_TYPE: "sata"
+      DISK_SIZE: "100G"
+      # hostfwd에 22번 포트를 호스트의 2222번으로 매핑 추가
+      ARGUMENTS: "-device nec-usb-xhci,id=usb0 -drive file=/rr.img,if=none,id=rr_disk,format=raw -device usb-storage,bus=usb0.0,drive=rr_disk,bootindex=1 -netdev user,id=net0,hostfwd=tcp::7681-:7681,hostfwd=tcp::5000-:5000,hostfwd=tcp::5001-:5001,hostfwd=tcp::22-:22 -device e1000,netdev=net0"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 5000:5000
+      - 5001:5001
+      - 2222:22     # 외부 2222번 포트를 컨테이너의 22번(SSH)으로 연결
+      - 7683:7681
+      - 7305:7304
+      - 7081:7080
+      - 8007:8006
+    volumes:
+      - ./rr.img:/rr.img
+      - ./data:/storage
+    restart: always
+    stop_grace_period: 2m
